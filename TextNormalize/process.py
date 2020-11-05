@@ -434,41 +434,31 @@ def segment_doc(doc , segment_length):
 	doc = doc.replace(" - ","-")
 	doc = doc.replace(" -","-")
 	doc = doc.replace("- ","-")
-	# doc = handlepuncbetweenAlphaBetSentence(doc)
-	# print("doc ", doc)
+	print("doc split ", doc.split())
+	doc = " ".join([handleErrorUpperWord(w) for w in doc.split()])	
 	_ = splitDocToSentences(doc , segment_length)
 	segments = concateListBeginByPunc(_)
 	result = [handlepuncbetweenAlphaBetSentence(s) for s in segments]
 	return result
 
-doc = """ Hôm nay, chính quy-ền Tru-mp chính thức rời Hiệp định Paris về Biến đổi Khí hậu. Và trong đúng 7-7-2020 ngày nữa, chính quyền Biden sẽ tái gia nhập hiệp định", ứng viên tổng thống đảng Dân chủ Joe Biden viết trên Twitter tối 4-11."""
-print(segment_doc(doc , segment_length = 10))
+def existUpperCharacter(word):
+	for c in word :
+		if c.isupper() == True:
+			return True
+	return False
 
-# import re
-# text = 'Bạn bè khi biết mình đi vào các khu điều trị bệnh nhân Covid- 19 thì ban đầu họ cũng e dè khi tiếp xúc với mình nhưng khi được giải thích kỹ hơn về việc mình làm thì họ hiểu” – phóng viên Phan Thành bày tỏ.Nguồn https://infonet.vietnamnet.vn/phong-vien-y-te-mau-lua-thap-thom-tac-nghiep-trong-tam-dich-covid19-post337084.infoBạn đang đọc bài viết "Phóng viên y tế máu lửa, thấp thỏm tác nghiệp trong "tâm dịch" Covid-19" tại chuyên mục Xã hội .'
+def lowerTextError(word):
+	if existUpperCharacter(word) == True and word[0].isupper() == False:
+		return word.lower()
+	else:
+		return word
 
-# print("Original string: ",text)
-# print("Urls: ",urls)
-
-# import re
-# line = "should we use tại email sau taibv@gmail.com.vn rồi sau đó phantuananh@sis.hust.edu.vn "
-# match = re.findall(r'[\w\.-]+@[\w\.-]+', line)
-# print(match)
-# print(process_word("//"))
-
-# string = """
-# Vụ sạt núi vùi lấp 11 người xảy ra ở thôn 6, xã Phước Lộc, huyện Phước Sơn chiều 28/10. """
+def handleErrorUpperWord(word):
+	list_segmentByPunc = splitwordByPunctuation(word)
+	return "".join([lowerTextError(token) for token in list_segmentByPunc])
 
 
-# string = "should we use tại email sau taibv@gmail.com.vn rồi sau đó phantuananh@sis.hust.edu.vn  va https://www.now.vn/ha-noi/sua-chua-tran-chau-quang-ninh-nguyen-phong-sac"
+# doc = """ Hôm nay, chính quy-ền Tru-mp chính thức rời Hiệp định Paris về Biến đổi Khí hậu. Và trong đúng 7-7-2020 ngày nữa, chính quyền Biden sẽ tái gia nhập hiệp định", ứng viên tổng thống đảng Dân chủ Joe Biden viết trên Twitter tối 4-11."""
+# print(segment_doc(doc , segment_length = 10))
 
-# print("\n")
-# a = concateListBeginByPunc(segments)
-# for i in a:
-# 	print(insertLinkToDoc(i))
-# string = """Bạn bè khi biết mình đi vào các khu điều trị bệnh nhân Covid- 19 thì ban đầu họ cũng e dè khi tiếp xúc với mình nhưng khi được giải thích kỹ hơn về việc mình làm thì họ hiểu” – phóng viên Phan Thành bày tỏ.Nguồn https://infonet.vietnamnet.vn/phong-vien-y-te-mau-lua-thap-thom-tac-nghiep-trong-tam-dich-covid19-post337084.infoBạn đang đọc bài viết "Phóng viên y tế máu lửa, thấp thỏm tác nghiệp trong "tâm dịch" Covid-19" tại chuyên mục Xã hội .
-# """
-# print(insertLinkToDoc(string))
-# l1 = removeHyperLinks(string)
-# l2 = removeMails(l1)
-# print(l2)
+print(segment_doc(".Phan uTau uHaun a a a a a aA Ba a a a a a a " , segment_length = 2)) 
