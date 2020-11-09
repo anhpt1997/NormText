@@ -210,7 +210,8 @@ def insertLinkToListToken(list_token):
 		for i in range(len(list_token)):
 			if i == 0:
 				if list_token[i] in punc:
-					list_token[i] = list_token[i] + '_'
+					if list_token[1] not in punc:
+						list_token[i] = list_token[i] + '_'
 			if 0 < i and i < len(list_token) - 1 :
 				if list_token[i] in punc:
 					if list_token[i+1] in punc:
@@ -465,4 +466,4 @@ def handleErrorUpperWord(word):
 # doc = """ Hôm nay, chính quy-ền Tru-mp chính thức rời Hiệp định Paris về Biến đổi Khí hậu. Và trong đúng 7-7-2020 ngày nữa, chính quyền Biden sẽ tái gia nhập hiệp định", ứng viên tổng thống đảng Dân chủ Joe Biden viết trên Twitter tối 4-11."""
 # print(segment_doc(doc , segment_length = 10))
 
-# print(process_word("tuan anh),Phan()>>?"))
+print(process_word(">?T>>tuan anh),Phan()>>?"))
