@@ -213,7 +213,11 @@ def insertLinkToListToken(list_token):
 					list_token[i] = list_token[i] + '_'
 			if 0 < i and i < len(list_token) - 1 :
 				if list_token[i] in punc:
-					list_token[i] = "_" + list_token[i] + "_"
+					if list_token[i+1] in punc:
+						list_token[i] = "_" + list_token[i]
+					else:
+						list_token[i] = "_" + list_token[i] + "_"
+
 			if i == len(list_token) - 1 and list_token[i] in punc :
 				list_token[i] = "_" + list_token[i]
 			# print(i , " ", list_token)
@@ -269,13 +273,13 @@ def insertLinkToListTokenFinal(list_token):
 
 def process_word(word):
 	l = splitwordByPunctuation(word)
-	# print("l ", l)
+	print("l ", l)
 	# l1 = splitByAlphaBet(l)
 	# print( " l1" , l1)
 	l3 = insertLinkToListToken(l)
-	# print("l3" ,l3)
+	print("l3" ,l3)
 	l4 = insertLinkToListTokenFinal(l3)
-	# print(l4)
+	print(l4)
 	return " ".join(l4)
 
 def insertLinkToDoc(doc):
@@ -461,4 +465,4 @@ def handleErrorUpperWord(word):
 # doc = """ Hôm nay, chính quy-ền Tru-mp chính thức rời Hiệp định Paris về Biến đổi Khí hậu. Và trong đúng 7-7-2020 ngày nữa, chính quyền Biden sẽ tái gia nhập hiệp định", ứng viên tổng thống đảng Dân chủ Joe Biden viết trên Twitter tối 4-11."""
 # print(segment_doc(doc , segment_length = 10))
 
-print(segment_doc(".Phan uTau uHaun a a a a a aA Ba a a a a a a " , segment_length = 2)) 
+# print(process_word("tuan anh),Phan()>>?"))
